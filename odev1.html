@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kişiye Özel Tişört Sipariş Aracı</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        input[type="submit"] {
+            background-color: #4CAF50;
+            color: white;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h1>Kişiye Özel Tişört Sipariş Aracı</h1>
+    <p>Lütfen oluşturmak istediğiniz siparişe ilişkin aşağıdaki bilgileri doldurunuz.</p>
+    <div class="form-group">
+        <label for="ad">Adınız</label>
+        <input type="text" id="ad" name="ad" required>
+    </div>
+    <div class="form-group">
+        <label for="soyad">Soyadınız</label>
+        <input type="text" id="soyad" name="soyad" required>
+    </div>
+    <div class="form-group">
+        <label for="dogum_tarihi">Doğum Tarihi (gg-aa-yyyy)</label>
+        <input type="text" id="dogum_tarihi" name="dogum_tarihi" pattern="\d{2}-\d{2}-\d{4}" required>
+    </div>
+    <div class="form-group">
+        <label for="mail">Mail Adresiniz</label>
+        <input type="email" id="mail" name="mail" required>
+    </div>
+    <div class="form-group">
+        <label for="telefon">Telefon Numaranız (5XX-XXX-XXXX)</label>
+        <input type="tel" id="telefon" name="telefon" pattern="[5-9]{1}[0-9]{2}-[0-9]{3}-[0-9]{4}" required>
+    </div>
+    
+    <div class="divider"></div>
+    <p style="font-weight: bold;">Sipariş Bilgileri</p>
+    <div class="form-group">
+        <label for="tisort_rengi">Tişört Rengi</label>
+        <input type="color" id="tisort_rengi" name="tisort_rengi" value="#ffffff">
+    </div>
+    <div class="form-group">
+        <label for="yazi_rengi">Yazı Rengi</label>
+        <input type="color" id="yazi_rengi" name="yazi_rengi" value="#000000">
+    </div>
+    <div class="form-group">
+        <label for="yazi_icerigi">Tişört Üzerinde Yazacak İçerik</label>
+        <input type="text" id="yazi_icerigi" name="yazi_icerigi">
+    </div>
+    <div class="form-group">
+        <label for="tisort_adedi">Tişört Adedi</label>
+        <input type="number" id="tisort_adedi" name="tisort_adedi" min="1" required>
+    </div>
+    <div class="form-group">
+        <label>Beden Seçiniz</label>
+        <select name="beden" required>
+            <option value="S">S</option>
+            <option value="M">M</option>
+            <option value="L">L</option>
+            <option value="XL">XL</option>
+        </select>
+    </div>
+    
+    </div>
+    <p style="font-weight: bold;">Teslimat Bilgileri</p>
+    <div class="form-group">
+        <label for="adres">Adres</label>
+        <input type="text" id="adres" name="adres" required>
+    </div>
+    <div class="form-group">
+        <label for="teslim_tarihi">Teslim Tarihi</label>
+        <input type="date" id="teslim_tarihi" name="teslim_tarihi" required>
+    </div>
+    <div class="divider"></div>
+    <p style="font-weight: bold;">Ödeme Bilgileri</p>
+    <div class="form-group">
+        <label for="kart_sahibi">Kart Sahibi Ad Soyad</label>
+        <input type="text" id="kart_sahibi" name="kart_sahibi" required>
+    </div>
+    <div class="form-group card-number">
+        <label for="kart_numarasi">Kart Numarası</label>
+        <input type="text" id="kart_numarasi" name="kart_numarasi" pattern="\d{4}-\d{4}-\d{4}-\d{4}" required placeholder="XXXX-XXXX-XXXX-XXXX">
+    </div>
+    <div class="form-group">
+        <label for="son_kullanma_tarihi">Son Kullanma Tarihi</label>
+        <input type="month" id="son_kullanma_tarihi" name="son_kullanma_tarihi" required>
+    </div>
+    <div class="form-group">
+        <label for="cvv">CVV</label>
+        <input type="text" id="cvv" name="cvv" required>
+    </div>
+    <div class="form-group">
+        <input type="submit" value="Onayla">
+    </div>
+    <h1>Sipariş Onay</h1>
+    <table id="siparisTablosu">
+        <tr>
+            <th colspan="2">Kişisel Bilgiler</th>
+        </tr>
+        <tr>
+            <td>Ad</td>
+            <td id="ad_table"><!-- Formdan alınan ad bilgisi --></td>
+        </tr>
+        <tr>
+            <td>Soyad</td>
+            <td id="soyad_table"><!-- Formdan alınan soyad bilgisi --></td>
+        </tr>
+        <tr>
+            <td>Doğum Tarihi</td>
+            <td id="dogum_tarihi_table"><!-- Formdan alınan doğum tarihi bilgisi --></td>
+        </tr>
+        <tr>
+            <td>Mail Adresi</td>
+            <td id="mail_table"><!-- Formdan alınan mail adresi bilgisi --></td>
+        </tr>
+        <tr>
+            <td>Telefon</td>
+            <td id="telefon_table"><!-- Formdan alınan telefon bilgisi --></td>
+        </tr>
+        <tr>
+            <th colspan="2">Sipariş Bilgileri</th>
+        </tr>
+        <tr>
+            <td>Tişört Rengi</td>
+            <td id="tisort_rengi_table"><!-- Formdan alınan tişört rengi bilgisi --></td>
+        </tr>
+        <tr>
+            <td>Yazı Rengi</td>
+            <td id="yazi_rengi_table"><!-- Formdan alınan yazı rengi bilgisi --></td>
+        </tr>
+        <tr>
+            <td>Yazı</td>
+            <td id="yazi_icerigi_table"><!-- Formdan alınan yazı bilgisi --></td>
+        </tr>
+        <tr>
+            <td>Tişört Adedi</td>
+            <td id="tisort_adedi_table"><!-- Formdan alınan tişört adedi bilgisi --></td>
+        </tr>
+        <tr>
+            <td>Tişört Bedeni</td>
+            <td id="beden_table"><!-- Formdan alınan tişört bedeni bilgisi --></td>
+        </tr>
+        <tr>
+            <th colspan="2">Teslimat Bilgileri</th>
+        </tr>
+        <tr>
+            <td>Adres</td>
+            <td id="adres_table"><!-- Formdan alınan adres bilgisi --></td>
+        </tr>
+        <tr>
+            <td>Teslimat Tarihi</td>
+            <td id="teslim_tarihi_table"><!-- Formdan alınan teslimat tarihi bilgisi --></td>
+        </tr>
+        <tr>
+            <th colspan="2">Ödeme Bilgileri</th>
+        </tr>
+        <tr>
+            <td>Ad Soyad</td>
+            <td id="kart_sahibi_table"><!-- Formdan alınan ödeme ad soyad bilgisi --></td>
+        </tr>
+        <tr>
+            <td>Kart Numarası</td>
+            <td id="kart_numarasi_table"><!-- Formdan alınan kart numarası bilgisi --></td>
+        </tr>
+        <tr>
+            <td>Son Kullanım Tarihi</td>
+            <td id="son_kullanma_tarihi_table"><!-- Formdan alınan son kullanım tarihi bilgisi --></td>
+        </tr>
+        <tr>
+            <td>CVV</td>
+            <td id="cvv_table"><!-- Formdan alınan CVV bilgisi --></td>
+        </tr>
+    </table>
+    <script>
+        // Bu kısımda JavaScript kodu ile formdaki bilgileri çekerek tabloya yerleştireceğiz.
+        window.onload = function() {
+            // Formdaki bilgileri almak için HTML elementlerini seçiyoruz.
+            const adInput = document.getElementById("ad");
+            const soyadInput = document.getElementById("soyad");
+            const dogumTarihiInput = document.getElementById("dogum_tarihi");
+            const mailInput = document.getElementById("mail");
+            const telefonInput = document.getElementById("telefon");
+            const tisortRengiInput = document.getElementById("tisort_rengi");
+            const yaziRengiInput = document.getElementById("yazi_rengi");
+            const yaziIcerigiInput = document.getElementById("yazi_icerigi");
+            const tisortAdediInput = document.getElementById("tisort_adedi");
+            const bedenInput = document.querySelector("select[name='beden']");
+            const adresInput = document.getElementById("adres");
+            const teslimTarihiInput = document.getElementById("teslim_tarihi");
+            const kartSahibiInput = document.getElementById("kart_sahibi");
+            const kartNumarasiInput = document.getElementById("kart_numarasi");
+            const sonKullanmaTarihiInput = document.getElementById("son_kullanma_tarihi");
+            const cvvInput = document.getElementById("cvv");
+
+            // Tablodaki hücrelere formdan alınan bilgileri yerleştiriyoruz.
+            document.getElementById("ad_table").innerText = adInput.value;
+            document.getElementById("soyad_table").innerText = soyadInput.value;
+            document.getElementById("dogum_tarihi_table").innerText = dogumTarihiInput.value;
+            document.getElementById("mail_table").innerText = mailInput.value;
+            document.getElementById("telefon_table").innerText = telefonInput.value;
+            document.getElementById("tisort_rengi_table").innerText = tisortRengiInput.value;
+            document.getElementById("yazi_rengi_table").innerText = yaziRengiInput.value;
+            document.getElementById("yazi_icerigi_table").innerText = yaziIcerigiInput.value;
+            document.getElementById("tisort_adedi_table").innerText = tisortAdediInput.value;
+            document.getElementById("beden_table").innerText = bedenInput.value;
+            document.getElementById("adres_table").innerText = adresInput.value;
+            document.getElementById("teslim_tarihi_table").innerText = teslimTarihiInput.value;
+            document.getElementById("kart_sahibi_table").innerText = kartSahibiInput.value;
+            document.getElementById("kart_numarasi_table").innerText = kartNumarasiInput.value;
+            document.getElementById("son_kullanma_tarihi_table").innerText = sonKullanmaTarihiInput.value;
+            document.getElementById("cvv_table").innerText = cvvInput.value;
+        };
+    </script>
+</body>
+</html>
